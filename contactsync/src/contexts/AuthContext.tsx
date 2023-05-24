@@ -1,4 +1,4 @@
-import { ReactNode, createContext } from "react";
+import { ReactNode, createContext, useEffect } from "react";
 import { LoginData } from "../pages/Login/validator";
 import { api } from "../services/api";
 import { useNavigate} from "react-router-dom"
@@ -16,13 +16,24 @@ export const AuthContext = createContext({} as AuthContextValues)
 export const AuthProvider = ({children}: AuthProviderProps) => {
     const navigate = useNavigate()
 
+    useEffect(() => {
+        const token = localStorage.getItem("contactSync:token")
+
+        if(!token){
+            navigate("/")
+        }
+
+        api.defaults.headers.common.Authorization = `Bearer ${token}`
+
+    })
+
     const signIn =  async (data: LoginData) => {
         try {
             const response = await api.post("/login", data)
             const { token } = response.data
 
             api.defaults.headers.common.Authorization = `Bearer ${token}`
-            localStorage.setItem("contactSync: token", token)
+            localStorage.setItem("contactSync:token", token)
             
             navigate("/dashboard")
         } catch (error) {
