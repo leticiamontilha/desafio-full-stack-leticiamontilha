@@ -1,7 +1,9 @@
+import RoutesMain from "./routes"
+
 function App() {
   return (
     <>
-      <h1>ContactSync</h1>
+      <RoutesMain/>
     </>
   )
 }
