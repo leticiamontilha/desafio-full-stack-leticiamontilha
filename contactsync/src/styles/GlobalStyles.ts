@@ -25,23 +25,23 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         font-family: 'Montserrat', sans-serif;
-        background: var(--vanilla)
+        background: var(--prussian-blue)
     }
 
-    /* button {
+    button {
         cursor: pointer;
         font-family: 'Montserrat', sans-serif;
         color: black;
         border: 1px solid black;
         padding: 7px;
-        border-radius: var(--border-radius);
+        border-radius: 10px;
     }
     
     input{
         border: 1px solid black;
         padding: 7px 7px 7px 10px;
-        border-radius: var(--border-radius);
-    }  */
+        border-radius: 10px;
+    } 
 
 `;
 

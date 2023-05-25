@@ -4,7 +4,7 @@ export const MainStyle = styled.main`
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     padding: 25px;
 `
 

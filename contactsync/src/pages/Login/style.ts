@@ -1,19 +1,27 @@
 import styled from "styled-components"
 
 export const SectionLogo = styled.section`
-    width: 80vw;
+    width: 90vw;
     max-width: 300px;
+    height: 550px;
 
     display: flex;
     flex-direction: column;
-    align-items: cente;
+    align-items: center;
     justify-content: center;
 
-    border: 1px solid black;
+    border-radius: 20px;
 
     h1 {
-        font-size: 25px;
-        color: var(--prussian-blue);
+        font-size: 30px;
+        color: var(--vanilla);
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
     }
 
     span {
@@ -23,12 +31,19 @@ export const SectionLogo = styled.section`
 `
 
 export const SectionLogin = styled.section`
-    border: 1px solid black;
-    width: 80vw;
+    width: 90vw;
     max-width: 300px;
+    height: 350px;
 
     display: flex;
     flex-direction: column;
-    align-items: cente;
+    align-items: center;
     justify-content: center;
+
+    background: var(--xanthous);
+    border-radius: 20px;
+
+    h2 {
+        font-size: 18px;
+    }
 `

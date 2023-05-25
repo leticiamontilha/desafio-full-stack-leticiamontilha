@@ -8,6 +8,7 @@ export const Login = () => {
         <MainStyle>
             <SectionLogo>
                 <h1>Contact<span>Sync</span></h1>
+                <p>"Contatos Sob Controle: Simplifique sua Rede de Relacionamentos"</p>
             </SectionLogo>
             
             <SectionLogin>
