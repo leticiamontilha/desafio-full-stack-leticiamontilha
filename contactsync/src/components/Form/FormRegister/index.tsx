@@ -3,6 +3,8 @@ import { RegisterData, registerSchema } from "../../../pages/Register/validator"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useContext } from "react"
 import { UserContext } from "../../../contexts/UserContext"
+import { FormStyle } from "../FormLogin/style"
+import { Link } from "react-router-dom"
 
 export const FormRegister = () => {
     const { userRegister } = useContext(UserContext)
@@ -27,7 +29,7 @@ export const FormRegister = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(submit)}>
+        <FormStyle onSubmit={handleSubmit(submit)}>
             <label htmlFor="name">Nome</label>
             <input type="text" id="name" placeholder="Digite seu nome aqui" {...register("name")}/>
 
@@ -40,9 +42,9 @@ export const FormRegister = () => {
             <label htmlFor="password">Senha</label>
             <input type="password" id="password" placeholder="Digite sua senha aqui" {...register("password")}/>
             
-            <a href="">Já possui uma conta? Faça seu login</a>
+            <Link to={"/"} >Já possui uma conta? Faça seu login</Link>
     
             <button type="submit">Cadastrar</button>
-        </form>
+        </FormStyle>
     )
 }

@@ -1,18 +1,21 @@
 import { FormRegister } from "../../components/Form/FormRegister"
 import { MainPage } from "../../components/Main"
+import { SectionLogo } from "../Login/style"
+import { SectionRegister } from "./style"
 
 
 export const Register = () => {
     return(
         <MainPage>
-            <section>
+            <SectionLogo>
                 <h1>Contact<span>Sync</span></h1>
-            </section>
+                <p>"Contatos Sob Controle: Simplifique sua Rede de Relacionamentos"</p>
+            </SectionLogo>
             
-            <section>
-                <h2>Cadastre=se</h2>
+            <SectionRegister>
+                <h2>Cadastre-se</h2>
                 <FormRegister/>
-            </section>
+            </SectionRegister>
         </MainPage>
     )
 }
