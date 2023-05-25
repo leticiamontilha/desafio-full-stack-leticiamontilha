@@ -1,7 +1,23 @@
+import { useEffect } from "react"
 import { HeaderPage } from "../../components/Header"
 import { SectionStyled } from "./style"
+import { api } from "../../services/api"
+import { useNavigate } from "react-router-dom"
 
 export const Dashboard = () => {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const token = localStorage.getItem("contactSync:token")
+
+        if(!token){
+            navigate("/")
+        }
+
+        api.defaults.headers.common.Authorization = `Bearer ${token}`
+
+    })
+
     return(
         <main>
             <HeaderPage>

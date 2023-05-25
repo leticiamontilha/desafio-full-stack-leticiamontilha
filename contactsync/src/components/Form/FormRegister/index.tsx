@@ -1,19 +1,21 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { RegisterData, registerSchema } from "../../../pages/Register/validator"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { useContext } from "react"
-import { UserContext } from "../../../contexts/UserContext"
-import { FormStyle } from "../FormLogin/style"
+import { useForm } from "react-hook-form"
+
+
 import { Link } from "react-router-dom"
+import { useAuth } from "../../../hooks/useAuth"
+import { FormStyle } from "../FormLogin/style"
+
 
 export const FormRegister = () => {
-    const { userRegister } = useContext(UserContext)
+    const { userRegister } = useAuth()
     const { register, handleSubmit, reset } = useForm<RegisterData>({
         mode: "onBlur",
         resolver: zodResolver(registerSchema)
     });
 
-    const submit: SubmitHandler<RegisterData> = async (data: RegisterData) => {
+    const submit = (data: RegisterData) => {
         const newUser = {
             name: data.name,
             email: data.email,
@@ -23,7 +25,7 @@ export const FormRegister = () => {
 
         console.log(newUser)
         
-        await userRegister(newUser)
+        userRegister(newUser)
         reset()
 
     }
