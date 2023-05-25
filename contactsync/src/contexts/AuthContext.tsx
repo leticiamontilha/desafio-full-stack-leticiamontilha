@@ -16,16 +16,16 @@ export const AuthContext = createContext({} as AuthContextValues)
 export const AuthProvider = ({children}: AuthProviderProps) => {
     const navigate = useNavigate()
 
-    useEffect(() => {
-        const token = localStorage.getItem("contactSync:token")
+    // useEffect(() => {
+    //     const token = localStorage.getItem("contactSync:token")
 
-        if(!token){
-            navigate("/")
-        }
+    //     if(!token){
+    //         navigate("/")
+    //     }
 
-        api.defaults.headers.common.Authorization = `Bearer ${token}`
+    //     api.defaults.headers.common.Authorization = `Bearer ${token}`
 
-    })
+    // })
 
     const signIn =  async (data: LoginData) => {
         try {
