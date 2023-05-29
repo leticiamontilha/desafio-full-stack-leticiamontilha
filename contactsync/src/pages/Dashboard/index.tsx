@@ -4,27 +4,31 @@ import { SectionStyled, ListStyled, CardContactStyled } from "./style"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../hooks/useAuth"
 import {BsTrash2Fill} from "react-icons/bs"
+import { api } from "../../services/api"
 
 export const Dashboard = () => {
     const navigate = useNavigate()
-    const { userInfo, user, contacts } = useAuth() 
-    // const { contacts } = useContext(ContactContext)
+    const { userInfo, user, setUser, contacts } = useAuth() 
 
 
     useEffect(() => {
-        // const token = localStorage.getItem("contactSync:token")
+        const token = localStorage.getItem("contactSync:token")
 
-        // if(!token){
-        //     navigate("/")
-        // }
+        if(!token){
+            navigate("/")
+        }
 
-        // api.defaults.headers.common.Authorization = `Bearer ${token}`
+        api.defaults.headers.common.Authorization = `Bearer ${token}`
 
         userInfo()
-        console.log(contacts)
-        
+
     }, [])
 
+    const logout = () => {
+        setUser(null)
+        localStorage.clear()
+        navigate("/")
+    }
 
 
     return(
@@ -32,12 +36,12 @@ export const Dashboard = () => {
             <HeaderPage>
                 <div className="containerHeader">
                     <div>
-                        <h2>Bem vindo, {user?.name}</h2>x
+                        <h2>Bem vindo, {user?.name}</h2>
                     </div>
                     <div>
                         <p>{user?.phone_number} - {user?.email}</p>
                     </div>
-                    <button>Sair</button>
+                    <button onClick={logout}>Sair</button>
                 </div>
             </HeaderPage>
 
@@ -49,9 +53,8 @@ export const Dashboard = () => {
                     </div>
 
                     <ListStyled>
-                    {
-                    contacts?.map(contato => 
-                        <CardContactStyled>
+                        {!contacts.length ? <h3>Você não possui nenhum contato :( </h3> : 
+                        contacts.map(contato => (<CardContactStyled key={contato.id}>
                             <p>{contato.name}</p>
                             <p>{contato.email}</p>
                             <p>{contato.phone_number}</p>
@@ -59,10 +62,8 @@ export const Dashboard = () => {
                                 <button className="edit">Editar</button>
                                 <button className="trash"><BsTrash2Fill/></button>
                             </div>
-                        </CardContactStyled>
-                    )}
+                        </CardContactStyled>))}
                     </ListStyled>
-                    
                 </div>
             </SectionStyled>
         </main>

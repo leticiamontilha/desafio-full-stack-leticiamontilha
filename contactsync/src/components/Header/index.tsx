@@ -6,6 +6,7 @@ interface headerProps{
 }
 
 export const HeaderPage = ({children}: headerProps) => {
+    
     return (
         <HeaderStyle>
             {children}

@@ -22,6 +22,11 @@ export const FormStyle = styled.form`
         font-size: 12px;
     }
 
+`
 
+export const ErrorMessage = styled.p`
+font-size: 12px;
+font-weight: 600;
+color: red;
 `
 

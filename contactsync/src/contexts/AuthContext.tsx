@@ -3,10 +3,19 @@ import { LoginData } from "../pages/Login/validator";
 import { api } from "../services/api";
 import { useNavigate} from "react-router-dom"
 import { RegisterData } from "../pages/Register/validator"
-import { ContactInfo } from "./ContactsContext"
+import { toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 interface AuthProviderProps {
     children: ReactNode
+}
+
+interface ContactInfo {
+    id: string,
+    name: string,
+    email: string,
+    phone_number: string,
+    createdAt: string
 }
 
 interface UserInfo {
@@ -24,7 +33,7 @@ interface AuthContextValues {
     userInfo: () => void
     user: UserInfo | null
     setUser: React.Dispatch<React.SetStateAction<null>>
-    contacts: ContactInfo[] | null
+    contacts: ContactInfo[] 
 }
 
 export const AuthContext = createContext({} as AuthContextValues)
@@ -52,10 +61,13 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
 
             api.defaults.headers.common.Authorization = `Bearer ${token}`
             localStorage.setItem("contactSync:token", token)
+
+            toast.success("Login realizado com sucesso!")
             
             navigate("/dashboard")
         } catch (error) {
             console.error(error)
+            toast.error("Usuário e/ou senha inválidos")
         }
     }
 
@@ -85,29 +97,7 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
         } catch (error) {
             console.error(error)
         }
-        }
-
-    
-
-    // const contactsInfo = async () => {
-    //     const token = localStorage.getItem("contactSync:token")
-        
-    //     try {
-    //         api.defaults.headers.common.authorization = `Bearer ${token}`
-    //         const response = await api.get<ContactInfo[]>("/contacts")
-
-    //         const contactData = response.data
-
-    //         console.log(contactData)
-
-    //         setContacts(contactData)
-
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-    
-    //     }
-
+    }
 
     return(
         <AuthContext.Provider value={{ signIn, userRegister, userInfo, user, setUser, contacts }}>
