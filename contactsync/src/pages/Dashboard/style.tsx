@@ -41,23 +41,54 @@ export const SectionStyled = styled.section`
         color: var(--prussian-blue);
     }
 
-    ul {
+`
+
+export const ListStyled = styled.ul`
         display: flex;
         justify-content: center;
         gap: 15px;
         flex-wrap: wrap;
         overflow-x: auto;
         padding: 10px;
+`   
+
+export const CardContactStyled = styled.li`
+    display: flex;
+    flex-direction: column;
+    background-color: var(--orange-wheel);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+    color: var(--prussian-blue);
+    width: 80vw;
+    max-width: 180px;
+    height: 130px;
+
+    p {
+        font-weight: bold;
+        font-size: 12px;
     }
 
-    li {
+    div {
         display: flex;
-        flex-direction: column;
-        background-color: var(--orange-wheel);
-        border-radius: 10px;
-        padding: 10px;
-        gap: 10px;
-        color: var(--prussian-blue);
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
     }
 
+    button {
+        border: none;
+    }
+
+    .edit{
+        background: var(--xanthous);
+        color: var(--prussian-blue);
+        font-weight: bold;
+    }
+
+    .trash{
+        background-color: var(--fire-engine-red);
+        color: var(--vanilla);
+    }
 `
