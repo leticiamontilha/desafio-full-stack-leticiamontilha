@@ -23,27 +23,23 @@ export const ContactProvider = ({children}: ContactProviderProps) => {
         
         try {
             api.defaults.headers.common.authorization = `Bearer ${token}`
-            const response = await api.post("/contacts", data)
+            await api.post("/contacts", data)
 
             toast.success("Contato adicionado com sucesso!")
-
-        
-            console.log(response)
             
         } catch (error) {
-            console.error(error)
             toast.error("O contato não pode ser adicionado")
+            console.error(error)
 
         }
     }
 
     // const updateContact = async (data: UpdateContactData) => {
     //     const token = localStorage.getItem("contactSync:token")
-    //     const userId = localStorage.getItem("contactSync:idUser")
-        
+
     //     try {
     //         api.defaults.headers.common.authorization = `Bearer ${token}`
-    //         const response = await api.post(`/contacts/${userId}`, data)
+    //         const response = await api.patch(`/contacts/${contactId}`, data)
         
     //         console.log(response)
             
@@ -55,11 +51,10 @@ export const ContactProvider = ({children}: ContactProviderProps) => {
     // const deleteContact = async () => {
         
     //     const token = localStorage.getItem("contactSync:token")
-    //     const userId = localStorage.getItem("contactSync:idUser")
         
     //     try {
     //         api.defaults.headers.common.authorization = `Bearer ${token}`
-    //         await api.post(`/contacts/${userId}`)
+    //         await api.delete(`/contacts/${contactId}`)
             
     //     } catch (error) {
     //         console.error(error)

@@ -12,9 +12,13 @@ interface NewContactData {
     phone_number: string
 }
 
-export const FormRegisterContact = () => {
+interface ModalProps {
+  toggleModal: () => void;
+}
+
+
+export const FormRegisterContact = ({toggleModal}: ModalProps) => {
     const {contactRegister} = useContext(ContactContext)
-    const { setIsModalOpen } = useAuth()
     const { register, handleSubmit, reset} = useForm<NewContactData>({
         mode: "onBlur",
         resolver: zodResolver(registerContactSchema)
@@ -29,7 +33,7 @@ export const FormRegisterContact = () => {
 
         contactRegister(newContact)
         reset()
-        setIsModalOpen(false)
+        toggleModal()
 
     }
     

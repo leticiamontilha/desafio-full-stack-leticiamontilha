@@ -10,7 +10,7 @@ interface AuthProviderProps {
     children: ReactNode
 }
 
-interface ContactInfo {
+export interface ContactInfo {
     id: string,
     name: string,
     email: string,
@@ -33,9 +33,8 @@ interface AuthContextValues {
     userInfo: () => void
     user: UserInfo | null
     setUser: React.Dispatch<React.SetStateAction<null>>
-    contacts: ContactInfo[] 
-    isModalOpen: boolean
-    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+    contacts: ContactInfo[]
+    setContacts: React.Dispatch<React.SetStateAction<ContactInfo[]>>
 }
 
 export const AuthContext = createContext({} as AuthContextValues)
@@ -44,7 +43,6 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
     const navigate = useNavigate()
     const [user, setUser ] = useState(null)
     const [contacts, setContacts] = useState<ContactInfo[]>([])
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("contactSync:token")
@@ -106,7 +104,7 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
     }
 
     return(
-        <AuthContext.Provider value={{ signIn, userRegister, userInfo, user, setUser, contacts, isModalOpen, setIsModalOpen }}>
+        <AuthContext.Provider value={{ signIn, userRegister, userInfo, user, setUser, contacts, setContacts }}>
             {children}
         </AuthContext.Provider>
     )

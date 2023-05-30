@@ -5,14 +5,16 @@ import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../hooks/useAuth"
 import {BsTrash2Fill} from "react-icons/bs"
 import { api } from "../../services/api"
-import Modal from "../../components/Modal"
-import { CloseButton } from "../../components/Modal/styled"
-import { FormRegisterContact } from "../../components/Form/Contacts/RegisterContact"
+import ModalAddContact from "../../components/Modal/AddContact"
+import ModalEditContact from "../../components/Modal/EditContact"
+import ModalDeleteContact from "../../components/Modal/DeleteContact"
 
 export const Dashboard = () => {
     const navigate = useNavigate()
-    const { userInfo, user, setUser, contacts, isModalOpen, setIsModalOpen } = useAuth() 
-
+    const { userInfo, user, setUser, contacts, setContacts } = useAuth() 
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isModalEditOpen, setIsModalEditOpen]= useState(false)
+    const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false)
 
     useEffect(() => {
         const token = localStorage.getItem("contactSync:token")
@@ -27,19 +29,14 @@ export const Dashboard = () => {
 
     }, contacts)
 
+    const toggleModal = () => setIsModalOpen(!isModalOpen);
+    const toggleEditModal = () => setIsModalEditOpen(!isModalEditOpen)
+    const toggleDeleteModal = () => setIsModalDeleteOpen(!isModalDeleteOpen)
+
     const logout = () => {
         setUser(null)
         localStorage.clear()
         navigate("/")
-    }
-
-
-    const openModal = () => {
-      setIsModalOpen(true);
-    }
-  
-    const closeModal = () => {
-      setIsModalOpen(false);
     }
   
     return(
@@ -56,17 +53,17 @@ export const Dashboard = () => {
                 </div>
             </HeaderPage>
 
+            {isModalOpen && (<ModalAddContact toggleModal={toggleModal} setContacts={setContacts} />)}
+
+            {isModalEditOpen && (<ModalEditContact toggleEditModal={toggleEditModal} setContacts={setContacts} />)}
+
+            {isModalDeleteOpen && (<ModalDeleteContact toggleDeleteModal={toggleDeleteModal} setContacts={setContacts}/>)}
+
             <SectionStyled>
                 <div className="containerContacts">
                     <div className="headerContacts">
                         <h2>Meus Contatos</h2>
-                        <button onClick={openModal}>Adicionar</button>
-        
-                        <Modal isOpen={isModalOpen} onClose={closeModal}>
-                        <CloseButton onClick={closeModal}>X</CloseButton>
-                        <FormRegisterContact />
-                        </Modal>
-
+                        <button onClick={toggleModal}>Adicionar</button>
                     </div>
 
                     <ListStyled>
@@ -76,8 +73,8 @@ export const Dashboard = () => {
                             <p>{contato.email}</p>
                             <p>{contato.phone_number}</p>
                             <div>
-                                <button className="edit">Editar</button>
-                                <button className="trash"><BsTrash2Fill /></button>
+                                <button onClick={toggleEditModal} className="edit">Editar</button>
+                                <button className="trash"><BsTrash2Fill onClick={toggleDeleteModal}/></button>
                             </div>
                         </CardContactStyled>))}
                     </ListStyled>

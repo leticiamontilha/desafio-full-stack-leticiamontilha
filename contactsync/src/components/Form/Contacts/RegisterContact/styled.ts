@@ -47,3 +47,26 @@ font-weight: 600;
 color: red;
 `
 
+export const FormDelete = styled.form`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 25px;
+    color: var(--prussian-blue);
+    padding: 25px;
+
+    p {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    button {
+        width: 150px;
+        border: none;
+        background-color: var(--fire-engine-red);
+        color: var(--vanilla);
+    }
+
+`
