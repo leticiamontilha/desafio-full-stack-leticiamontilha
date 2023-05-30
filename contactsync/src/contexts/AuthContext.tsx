@@ -34,6 +34,8 @@ interface AuthContextValues {
     user: UserInfo | null
     setUser: React.Dispatch<React.SetStateAction<null>>
     contacts: ContactInfo[] 
+    isModalOpen: boolean
+    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const AuthContext = createContext({} as AuthContextValues)
@@ -42,6 +44,7 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
     const navigate = useNavigate()
     const [user, setUser ] = useState(null)
     const [contacts, setContacts] = useState<ContactInfo[]>([])
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("contactSync:token")
@@ -91,6 +94,9 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
 
             const userData = response.data
 
+            const userId = userData.id
+            localStorage.setItem("contactSync:idUser", userId)
+
             setUser(userData)
             setContacts(userData.contacts)
 
@@ -100,7 +106,7 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
     }
 
     return(
-        <AuthContext.Provider value={{ signIn, userRegister, userInfo, user, setUser, contacts }}>
+        <AuthContext.Provider value={{ signIn, userRegister, userInfo, user, setUser, contacts, isModalOpen, setIsModalOpen }}>
             {children}
         </AuthContext.Provider>
     )

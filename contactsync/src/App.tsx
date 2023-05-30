@@ -1,4 +1,5 @@
 import { AuthProvider } from "./contexts/AuthContext"
+import { ContactProvider } from "./contexts/ContactContext"
 import RoutesMain from "./routes"
 import { GlobalStyle } from "./styles/GlobalStyles"
 import { ToastContainer } from 'react-toastify'
@@ -21,7 +22,9 @@ function App() {
     />
       <GlobalStyle/>
       <AuthProvider>
+      <ContactProvider>
         <RoutesMain/>
+      </ContactProvider>
       </AuthProvider>
     </>
   )
