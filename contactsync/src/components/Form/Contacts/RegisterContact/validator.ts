@@ -1,4 +1,4 @@
-import { TypeOf, z } from "zod"
+import { z } from "zod"
 
 
 export const registerContactSchema = z.object({
@@ -7,7 +7,7 @@ export const registerContactSchema = z.object({
     phone_number: z.string().min(3).max(11).nonempty("O numero de telefone é obrigatório")
 })
 
-export const updateContactSchema = registerContactSchema.partial()
+export const updateContactSchema = registerContactSchema.deepPartial()
 
 export type RegisterContactData = z.infer<typeof registerContactSchema>
 export type UpdateContactData = z.infer<typeof updateContactSchema>

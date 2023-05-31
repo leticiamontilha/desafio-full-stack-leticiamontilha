@@ -1,27 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { CloseButton, ModalContent, ModalWrapper } from '../styled'
 import { ContactInfo } from "../../../contexts/AuthContext"
-import { FormStyle } from '../../Form/FormLogin/style';
 import { UpdateContactData, updateContactSchema } from '../../Form/Contacts/RegisterContact/validator';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {useForm} from'react-hook-form'
 import { FormDelete } from '../../Form/Contacts/RegisterContact/styled';
+import { ContactContext } from '../../../contexts/ContactContext';
 
 interface ModalProps {
   toggleDeleteModal: () => void;
   setContacts: React.Dispatch<React.SetStateAction<ContactInfo[]>>
+  isIdContact: string
 }
 
-const ModalDeleteContact = ({ toggleDeleteModal, setContacts }: ModalProps) => {
-  // const {contactRegister} = useContext(ContactContext)
-  const {handleSubmit} = useForm<UpdateContactData>({
+const ModalDeleteContact = ({ toggleDeleteModal, isIdContact }: ModalProps) => {
+  const {deleteContact} = useContext(ContactContext)
+  const {handleSubmit} = useForm({
       mode: "onBlur",
       resolver: zodResolver(updateContactSchema)
   })
 
-  const submit = (data: any) => {
+  const submit = () => {
 
-      toggleDeleteModal()
+    deleteContact(isIdContact)
+    toggleDeleteModal()
 
   }
 

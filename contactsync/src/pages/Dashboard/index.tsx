@@ -15,6 +15,10 @@ export const Dashboard = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isModalEditOpen, setIsModalEditOpen]= useState(false)
     const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false)
+    const [isIdContact, setIsIdContact] = useState<string>("")
+    const [isNameContact, setIsNameContact] = useState<string>("")
+    const [isEmailContact, setIsEmailontact] = useState<string>("")
+    const [isPhoneContact, setIsPhoneContact] = useState<string>("")
 
     useEffect(() => {
         const token = localStorage.getItem("contactSync:token")
@@ -55,9 +59,16 @@ export const Dashboard = () => {
 
             {isModalOpen && (<ModalAddContact toggleModal={toggleModal} setContacts={setContacts} />)}
 
-            {isModalEditOpen && (<ModalEditContact toggleEditModal={toggleEditModal} setContacts={setContacts} />)}
+            {isModalEditOpen && (<ModalEditContact 
+                isIdContact={isIdContact} 
+                isNameContact={isNameContact}
+                isEmailContact={isEmailContact}
+                isPhoneContact={isPhoneContact}
+                toggleEditModal={toggleEditModal} 
+                setContacts={setContacts} 
+            />)}
 
-            {isModalDeleteOpen && (<ModalDeleteContact toggleDeleteModal={toggleDeleteModal} setContacts={setContacts}/>)}
+            {isModalDeleteOpen && (<ModalDeleteContact isIdContact={isIdContact} toggleDeleteModal={toggleDeleteModal} setContacts={setContacts}/>)}
 
             <SectionStyled>
                 <div className="containerContacts">
@@ -68,13 +79,23 @@ export const Dashboard = () => {
 
                     <ListStyled>
                         {!contacts.length ? <h3>Você não possui nenhum contato :( </h3> : 
-                        contacts.map(contato => (<CardContactStyled key={contato.id}>
+                        contacts.map(contato =>
+                        (<CardContactStyled key={contato.id} id={contato.id} >
                             <p>{contato.name}</p>
                             <p>{contato.email}</p>
                             <p>{contato.phone_number}</p>
                             <div>
-                                <button onClick={toggleEditModal} className="edit">Editar</button>
-                                <button className="trash"><BsTrash2Fill onClick={toggleDeleteModal}/></button>
+                                <button onClick={() => 
+                                    {setIsIdContact(contato.id), 
+                                    setIsNameContact(contato.name)
+                                    setIsEmailontact(contato.email)
+                                    setIsPhoneContact(contato.phone_number)    
+                                }}  
+                                    onClickCapture={toggleEditModal} 
+                                    className="edit">Editar</button>
+                                <button className="trash"><BsTrash2Fill 
+                                onClick={() => {setIsIdContact(contato.id)}}  
+                                onClickCapture={toggleDeleteModal}/></button>
                             </div>
                         </CardContactStyled>))}
                     </ListStyled>
